@@ -65,3 +65,5 @@ group :test do
 end
 
 gem "friendly_id", "~> 5.5"
+gem 'foreman'
+gem "bcrypt", "~> 3.1"
