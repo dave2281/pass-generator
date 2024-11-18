@@ -4,8 +4,14 @@ class PagesController < ApplicationController
     include_symbols = params[:include_symbols] == '1'
     include_numbers = params[:include_numbers] == '1'
     include_uppercase = params[:include_uppercase] == '1'
+    include_lowercase = params[:include_lowercase] == '1'
 
-    @password = generate_password(length, include_uppercase, include_symbols, include_numbers)
+    @password = generate_password(length, include_uppercase, include_symbols, include_numbers, include_lowercase)
+    if @password
+      @password 
+    else
+      @password = 'nothing'
+    end
     @bits = calculate_entropy(@password)
 
     respond_to do |format|
@@ -22,23 +28,32 @@ class PagesController < ApplicationController
 
   private
 
-  def generate_password(length = 12, include_uppercase = false, include_symbols = false, include_numbers = false)
+  def generate_password(length = 12, include_uppercase = false, include_symbols = false, include_numbers = false, include_lowercase = false)
     lower_case = ('a'..'z').to_a
     upper_case = ('A'..'Z').to_a
     numbers = ('0'..'9').to_a
     symbols = %w[! @ # $ % ^ & *]
-
-    all_characters = lower_case
+  
+    all_characters = []
+    all_characters += lower_case if include_lowercase
     all_characters += upper_case if include_uppercase
     all_characters += symbols if include_symbols
     all_characters += numbers if include_numbers
-
+  
     length = 128 if length > 128
-    length = 8 if length < 0
-
-    password = Array.new(length) { all_characters.sample }.join
-    return password
-  end
+    length = 8 if length < 8
+  
+    loop do
+      password = Array.new(length) { all_characters.sample }.join
+  
+      if (!include_uppercase || password =~ /[A-Z]/) &&
+         (!include_numbers || password =~ /\d/) &&
+         (!include_symbols || password =~ /[!@#$%^&*]/) &&
+         (!include_lowercase || password =~ /[a-z]/)
+        return password
+      end
+    end
+  end  
 
   def calculate_entropy(password)
     include_lowercase = password.match?(/[a-z]/)
