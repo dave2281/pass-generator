@@ -8390,15 +8390,33 @@ var application = Application.start();
 application.debug = false;
 window.Stimulus = application;
 
-// app/javascript/controllers/hello_controller.js
-var hello_controller_default = class extends Controller {
-  connect() {
-    this.element.textContent = "Hello World!";
+// app/javascript/controllers/password_controller.js
+var password_controller_default = class extends Controller {
+  getPass(e) {
+    const passwordValue = e.target.value;
+    navigator.clipboard.writeText(passwordValue);
+    this.dispatch("copy", { detail: { content: "Password has been copied!" } });
+  }
+};
+
+// app/javascript/controllers/password_copy_message_controller.js
+var password_copy_message_controller_default = class extends Controller {
+  show(event) {
+    const notification = document.getElementById("copyNotification");
+    const message = event.detail.content;
+    notification.textContent = message;
+    notification.classList.remove("opacity-0", "pointer-events-none");
+    notification.classList.add("opacity-100");
+    setTimeout(() => {
+      notification.classList.remove("opacity-100");
+      notification.classList.add("opacity-0", "pointer-events-none");
+    }, 3e3);
   }
 };
 
 // app/javascript/controllers/index.js
-application.register("hello", hello_controller_default);
+application.register("password", password_controller_default);
+application.register("passwordCopyMessage", password_copy_message_controller_default);
 /*! Bundled license information:
 
 @hotwired/turbo/dist/turbo.es2017-esm.js:

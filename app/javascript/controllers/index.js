@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import PasswordController from "./password_controller"
+application.register("password", PasswordController)
+
+import PasswordCopyMessageController from "./password_copy_message_controller"
+application.register("passwordCopyMessage", PasswordCopyMessageController)
