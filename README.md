@@ -33,18 +33,21 @@ Follow these steps to set up and run the app locally:
 ### 🛠 Installation
 
 1. **Clone the Repository**:  
-  ```bash
-  git clone https://github.com/your-username/password-generator.git
-  ```
+   ```bash
+   git clone https://github.com/your-username/password-generator.git
+   ```
+   
+2. **Install yarn**
+   ```bash
+   yarn install
+   ```
 
+3. **Install all the necessary gems**
   ```bash
   bundle
   ```
-  
-  ```bash
-  yarn install
-  ```
 
+4. **Start the application**
   ```bash
   bin/dev
   ```
