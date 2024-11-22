@@ -33,4 +33,12 @@ RSpec.describe 'Password Generator', type: :system do
 
     expect(page).to have_selector('#copyNotification', visible: true)
   end
+
+  it 'copies password to clipboard from clicking on passwordField', js: true do
+    visit root_path
+    fill_in 'passwordField', with: 'examplePassword'
+    find('#passwordField').click
+  
+    expect(page).to have_selector('#copyNotification', visible: true)
+  end  
 end
