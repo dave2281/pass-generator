@@ -28,7 +28,6 @@ Follow these steps to set up and run the app locally:
 - **Ruby**: Version 3.2.0 or higher.  
 - **Rails**: Version 8.0.0 or higher.  
 - **Node.js** and **Yarn**: For managing frontend assets.  
-- **PostgreSQL**: Default database (can be changed).  
 
 ### 🛠 Installation
 
