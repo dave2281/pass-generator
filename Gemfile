@@ -69,3 +69,5 @@ gem 'foreman'
 gem "bcrypt", "~> 3.1"
 
 gem "rspec-rails", "~> 7.1"
+gem 'dotenv-rails', groups: [:development, :test]
+
